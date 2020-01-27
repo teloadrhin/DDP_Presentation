@@ -38,9 +38,16 @@ knit        : slidify::knit2slides
 ---
 
 ## Classification Trees 
-[Classification trees](https://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees_.28CART.29) are a machine learning algorithm often used for classification problems. 
+A simple example of training and plotting a [classification tree](https://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees_.28CART.29) is shown below:  
 
-The app uses the function ` fancyRpartPlot` from the **rattle** library to draw a nice looking graphical representation of the fitted model. An example is shown below. 
+
+```r
+library(caret); library(rattle); data(iris); set.seed(4582)
+trainIDX <- createDataPartition(iris$Species,p=0.7,list=FALSE,times=1)
+training <- iris[trainIDX,-c(3,4)]; testing <- iris[-trainIDX,-c(3,4)]
+mdl1 <- train(Species ~ ., data=training,method="rpart2") 
+fancyRpartPlot(mdl1$finalModel, sub="", main="")
+```
 
 <img src="assets/fig/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
@@ -60,7 +67,7 @@ The machine learning parts of the app make heavy use of the [caret](http://topep
 * [training the model](http://topepo.github.io/caret/model-training-and-tuning.html) with `train`. For the app the `method="rpart2"` option is used to train a classification tree. 
 * making predictions from the trained model with `predict`
 
-Follow [this link](http://topepo.github.io/caret/train-models-by-tag.html) to learn more about tree models in the caret package. 
+Now that you know a bit more about the app and decision trees, why not [try it out](https://www.shinyapps.io/admin/#/application/1708740)? Can you reproduce the plot from the last page?
 
 --- &radio
 

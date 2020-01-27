@@ -90,9 +90,14 @@
   </hgroup>
   
   <article data-timings="">
-    <p><a href="https://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees_.28CART.29">Classification trees</a> are a machine learning algorithm often used for classification problems. </p>
+    <p>A simple example of training and plotting a <a href="https://en.wikipedia.org/wiki/Predictive_analytics#Classification_and_regression_trees_.28CART.29">classification tree</a> is shown below:  </p>
 
-<p>The app uses the function <code>fancyRpartPlot</code> from the <strong>rattle</strong> library to draw a nice looking graphical representation of the fitted model. An example is shown below. </p>
+<pre><code class="r">library(caret); library(rattle); data(iris); set.seed(4582)
+trainIDX &lt;- createDataPartition(iris$Species,p=0.7,list=FALSE,times=1)
+training &lt;- iris[trainIDX,-c(3,4)]; testing &lt;- iris[-trainIDX,-c(3,4)]
+mdl1 &lt;- train(Species ~ ., data=training,method=&quot;rpart2&quot;) 
+fancyRpartPlot(mdl1$finalModel, sub=&quot;&quot;, main=&quot;&quot;)
+</code></pre>
 
 <p><img src="assets/fig/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
 
@@ -120,7 +125,7 @@
 <li><p>making predictions from the trained model with <code>predict</code></p></li>
 </ul>
 
-<p>Follow <a href="http://topepo.github.io/caret/train-models-by-tag.html">this link</a> to learn more about tree models in the caret package. </p>
+<p>Now that you know a bit more about the app and decision trees, why not <a href="https://www.shinyapps.io/admin/#/application/1708740">try it out</a>? Can you reproduce the plot from the last page?</p>
 
   </article>
   <!-- Presenter Notes -->
